@@ -16,18 +16,28 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-typedef enum
+typedef struct		s_room
 {
+	unsigned int	x;
+	unsigned int	y;
+}					t_room;
+
+typedef struct		s_anthill
+{
+	s_room			*rooms[];
+	s_node			*nodes[];
+}					t_anthill;
+
+typedef enum		e_error
+{
+	ERROR_OK,
+	ERROR_MALFORMED_ROOM,
+	ERROR_MALFORMED_NODE,
 	ERROR_MALFORMED_COMMAND,
 	ERROR_MALFORMED_COMMENT,
-	ERROR_MALFORMED_ROOM,
-	ERROR_MALFORMED_NODE
-}	e_error;
+}					t_error;
 
-# define PROPERTY_IS_VALID   1
-# define PROPERTY_DEATHSQUAD 2
-
-typedef enum
+typedef enum		e_command
 {
 	COMMAND_NONE,
 	COMMAND_END,
@@ -35,6 +45,8 @@ typedef enum
 	COMMAND_FIREPIT,
 	COMMAND_WORMHOLE,
 	COMMAND_DEATHSQUAD
-}	e_command;
+}					t_command;
+
+e_error				read_game_data(const char *s, t_anthill **out);
 
 #endif
