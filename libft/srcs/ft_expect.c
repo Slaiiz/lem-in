@@ -6,7 +6,7 @@
 /*   By: vchesnea <vchesnea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/00/21 15:32:34 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/00/21 15:32:34 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:50:53 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ static void	read_number(const char **in, va_list argp)
 {
 	const char	*tmp;
 
-	ft_printf("%s -> ", *in);
 	tmp = *in;
 	while (ft_isdigit(*tmp))
 		tmp++;
 	if (!(ptrdiff_t)(tmp - *in))
 		return ;
 	*va_arg(argp, size_t*) = ft_atoi(*in);
-	ft_printf("%d\n", ft_atoi(*in));
 	*in = tmp;
 	return ;
 }
@@ -34,14 +32,12 @@ static void	read_identifier(const char **in, va_list argp)
 	const char	*tmp;
 	ptrdiff_t	len;
 
-	ft_printf("%s -> ", *in);
 	tmp = *in;
 	while (ft_isalpha(*tmp))
 		tmp++;
 	if (!(len = (ptrdiff_t)(tmp - *in)))
 		return ;
 	*va_arg(argp, char**) = ft_strsub(*in, 0, len);
-	ft_printf("%s\n", ft_strsub(*in, 0, len));
 	*in = tmp;
 	return ;
 }
