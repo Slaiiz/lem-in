@@ -3,66 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchesnea <vchesnea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/00/21 15:32:34 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/05/31 16:50:53 by vchesnea         ###   ########.fr       */
+/*   Created: 2016/06/01 18:18:59 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/06/01 18:31:40 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libft.h"
 
-static void	read_number(const char **in, va_list argp)
+static int	read_number(const char **s, const char **format, va_list argp)
 {
-	const char	*tmp;
+	size_t			n;
+	void			*dst;
+	const char		*tmp;
 
-	tmp = *in;
+	tmp = *s;
 	while (ft_isdigit(*tmp))
-		tmp++;
-	if (!(ptrdiff_t)(tmp - *in))
-		return ;
-	*va_arg(argp, size_t*) = ft_atoi(*in);
-	*in = tmp;
-	return ;
+		++tmp;
+	if ((tmp - *s) == 0)
+		return (1);
+	n = ft_atoi(s);
+	dst = va_arg(argp, size_t*);
+	if (**format == 'b')
+		*(unsigned char*)dst = n;
+	else if (**format == 'h')
+		*(unsigned short*)dst = n;
+	else if (**format == 'w')
+		*(unsigned int*)dst = n;
+	else if (**format == 'g')
+		*(unsigned long*)dat = n;
+	*s = tmp;
+	++*format;
+	return (0);
 }
 
-static void	read_identifier(const char **in, va_list argp)
+static int	read_identifier(const char *s, va_list argp)
 {
+	void		*dst;
 	const char	*tmp;
-	ptrdiff_t	len;
 
-	tmp = *in;
-	while (ft_isalpha(*tmp))
-		tmp++;
-	if (!(len = (ptrdiff_t)(tmp - *in)))
-		return ;
-	*va_arg(argp, char**) = ft_strsub(*in, 0, len);
-	*in = tmp;
-	return ;
+	tmp = *s;
+	if (!ft_isalpha(*tmp++))
+		return (1);
+	while (ft_isalnum(*tmp))
+		++tmp;
+	dst = va_arg(argp, char*);
+	if ((*dst = ft_strsub(s, 0, (tmp - *s))) == NULL)
+		return (1);
+	*s = tmp;
 }
 
 int			ft_expect(const char **s, const char *format, ...)
 {
-	va_list	argp;
-	char	c;
+	char		c;
+	const char	*tmp;
+	va_list		argp;
 
+	tmp = *s;
 	va_start(argp, format);
-	while ((c = *format) != '\0')
+	while ((c = *format++) != '\0')
 	{
-		if (c == '$' && (c = *++format))
+		if (c == '$' && (c = *format++))
 		{
-			if (c == 'n')
-				read_number(s, argp);
-			else if (c == 'i')
-				read_identifier(s, argp);
-			format++;
-			continue ;
+			if (c == 'n' && read_number(&tmp, &format, argp))
+				return (1);
+			else if (c == 'i' && read_identifier(&tmp, argp))
+				return (1);
+			else if (c == '$' && *tmp != c)
+				return (1);
 		}
-		if (**s != c)
-			return (0);
-		format++;
-		(*s)++;
+		else if (*tmp != c)
+			return (1);
 	}
-	return (1);
+	return (0);
 }
