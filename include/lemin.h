@@ -42,24 +42,12 @@ typedef struct		s_node
 typedef struct		s_anthill
 {
 	t_room			*end;
-	t_room			*start;
 	unsigned int	n_ants;
+	t_room			*start;
 	t_room			**rooms;
 	t_node			**nodes;
 }					t_anthill;
 
-typedef enum		e_error
-{
-	ERROR_OK,
-	ERROR_MALLOC,
-	ERROR_BAD_INPUT,
-	ERROR_MALFORMED_ROOM,
-	ERROR_MALFORMED_NODE,
-	ERROR_MALFORMED_COMMAND,
-	ERROR_MALFORMED_COMMENT,
-}					t_error;
-
-t_error				read_game_data(const char *s, t_anthill **out);
 unsigned int		key_to_hash(const char *s);
 
 #endif
