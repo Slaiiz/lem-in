@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 18:30:07 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/01 13:25:19 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/03 18:03:29 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	process_comment(const char **s)
 static int	process_room(const char **s, t_command command, t_list **in)
 {
 	const char	*tmp;
+	t_list		*item;
 	t_room		*room;
 
 	tmp = *s - 1;
@@ -48,49 +49,18 @@ static int	process_room(const char **s, t_command command, t_list **in)
 	if ((size_t)(tmp - *s) < 1 || (room = malloc(sizeof(*room))) == NULL)
 		return (1);
 	room->name = ft_strsub(*s, 0, (size_t)(tmp++ - *s));
-	if (!ft_expect(&tmp, "$n $n\n", &room->x, &room->y))
+	if (ft_expect(&tmp, "$nw $nw\n", &room->x, &room->y))
 		return (1);
 	ft_printf("New room:\n- Name = '%s'\n- X = %d\n- Y = %d\n",
-	room->name, room->x, room->y);
+		room->name, room->x, room->y);
+	if ((item = ft_lstnew(room, sizeof(*room))) == NULL
+		|| ft_lstadd(in, new))
+		return (1);
 	*s = tmp;
 	return (0);
 }
 
-/*
-** read_game_data:
-** Step 1: Ant count check
-** Step 2: Room definition check
-** - Command
-** - Comment
-** - Room definition
-** Step 3: Node definition check
-** - Comment
-** - Node definition
-*/
-
-t_error 	read_game_data(const char *s, t_anthill **out)
+static int	process_node(const char **s, t_list **in)
 {
-    t_list      *items;
-    t_command   command;
 
-    if ((*out = malloc(sizeof(**out))) == NULL)
-        return (ERROR_MALLOC);
-    if (!ft_expect(&s, "$n\n", &(*out)->n_ants))
-        return (ERROR_BAD_INPUT);
-    items = NULL;
-    while (*s != '\0')
-    {
-        if (ft_expect(&s, "##"))
-        {
-            if (process_command(&s, &command))
-                return (ERROR_MALFORMED_COMMAND);
-            if (process_room(&s, command, &items))
-                return (ERROR_MALFORMED_ROOM);
-        }
-        else if (ft_expect(&s, "#") && process_comment(&s))
-        	return (ERROR_MALFORMED_COMMENT);
-        else if (process_room(&s, COMMAND_NONE, &items))
-            return (ERROR_MALFORMED_ROOM);
-    }
-    return (ERROR_OK);
 }
