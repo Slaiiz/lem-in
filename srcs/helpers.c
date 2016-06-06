@@ -12,12 +12,12 @@
 
 #include "lemin.h"
 
-unsigned int	key_to_hash(const char *s)
+unsigned int	key_to_hash(const char *s, size_t len)
 {
 	unsigned int	hash;
 
 	hash = 0x726dc07b;
-	while (*s != '\0')
+	while (len-- && *s != '\0')
 		hash = (hash / 7) + (*s++ * 0x5940bd67 ^ hash);
 	return (hash);
 }

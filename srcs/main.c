@@ -6,25 +6,41 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 19:03:08 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/05/31 16:29:43 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/06 19:18:22 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static int	build_room_data(t_list *in, t_anthill *in)
+static int	build_room_data(t_list *lst, t_anthill *in)
 {
-	size_t	len;
-	t_list	*tmp;
+	size_t			len;
+	unsigned int	hash;
+	t_room			*room;
 
-	if ((len = ft_lstlen(in)) < 1)
+	if ((len = ft_lstlen(lst)) < 1)
 		return (1);
-	tmp = in;
-	while (tmp)
+	if ((in->rooms = malloc(10 * len * sizeof(*in->rooms))) == NULL)
+		return (1);
+	while (lst)
+	{
+		room = (t_room*)lst->content;
+		hash = key_to_hash(room->name, ft_strlen(room->name)) % (10 * len);
+		ft_printf("Room '%s' has hash: {{red;u}}%#x{{eoc;}}\n",
+			room->name, hash);
+		if (room->command == COMMAND_START)
+			in->start = in->rooms[hash];
+		else if (room->command == COMMAND_END)
+			in->end = in->rooms[hash];
+		in->rooms[hash] = room;
+		lst = lst->next;
+	}
+	in->len = len;
+	return (0);
 }
 
 /*
-** process_input:
+** parse_input:
 ** Step 1: Ant count check
 ** Step 2: Room definition check
 ** - Command
@@ -103,10 +119,10 @@ int			main(int argc, char **argv)
 	t_anthill	data;
 	const char	*input;
 
-	if (read_input(&input) || process_input(input, &data))
+	if (read_input(&input) || parse_input(input, &data))
 	{
 		ft_printf("#!fd=2^ERROR\n");
-		return (ERROR_BAD_INPUT);
+		return (1);
 	}
 	return (0);
 }

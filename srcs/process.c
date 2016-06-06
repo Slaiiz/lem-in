@@ -6,13 +6,13 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 18:30:07 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/03 18:03:29 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/06 19:17:59 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static int	process_command(const char **s, t_command *in)
+int	process_command(const char **s, t_command *in)
 {
 	if (ft_seekstr(s, "end"))
 		*in = COMMAND_END;
@@ -29,14 +29,14 @@ static int	process_command(const char **s, t_command *in)
 	return (!ft_seekstr(s, "\n"));
 }
 
-static int	process_comment(const char **s)
+int	process_comment(const char **s)
 {
 	while (**s != '\0' && **s != '\n')
 		++*s;
 	return (!ft_seekstr(s, "\n"));
 }
 
-static int	process_room(const char **s, t_command command, t_list **in)
+int	process_room(const char **s, t_command command, t_list **in)
 {
 	const char	*tmp;
 	t_list		*item;
@@ -53,14 +53,37 @@ static int	process_room(const char **s, t_command command, t_list **in)
 		return (1);
 	ft_printf("New room:\n- Name = '%s'\n- X = %d\n- Y = %d\n",
 		room->name, room->x, room->y);
-	if ((item = ft_lstnew(room, sizeof(*room))) == NULL
-		|| ft_lstadd(in, new))
+	if ((item = ft_lstnew(room, sizeof(*room))) == NULL)
 		return (1);
+	ft_lstadd(in, item);
 	*s = tmp;
 	return (0);
 }
 
-static int	process_node(const char **s, t_list **in)
+int	process_node(const char **s, t_anthill *in)
 {
+	const char		*tmp;
+	t_list			*new;
+	t_room			*node_a;
+	t_room			*node_b;
 
+	tmp = *s - 1;
+	while (*++tmp != '-')
+		if (*tmp == '\0' || *tmp == '\n')
+			return (1);
+	node_a = in->rooms[key_to_hash(*s, (size_t)(tmp - *s)) % (10 * in->len)];
+	*s = tmp + 1;
+	while (*++tmp != '\n')
+		if (*tmp == '\0')
+			return (1);
+	node_b = in->rooms[key_to_hash(*s, (size_t)(tmp - *s)) % (10 * in->len)];
+	if ((new = ft_lstnew(node_b, sizeof(node_b))) == NULL)
+		return (1);
+	ft_lstadd(&node_a->nodes, new);
+	if ((new = ft_lstnew(node_a, sizeof(node_a))) == NULL)
+		return (1);
+	ft_lstadd(&node_b->nodes, new);
+	ft_printf("Created linkage\n");
+	*s = ++tmp;
+	return (0);
 }
