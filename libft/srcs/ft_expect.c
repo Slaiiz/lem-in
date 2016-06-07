@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/01 18:18:59 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/03 17:58:33 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/07 19:04:08 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,13 @@ int			ft_expect(const char **s, const char *format, ...)
 
 	tmp = *s;
 	va_start(argp, format);
-	while ((c = *format++) != '\0')
+	while ((c = *(*format)++) != '\0')
 	{
-		if (c == '$' && (c = *format++))
+		if (c == '$' && (c = *(*format)++)))
 		{
-			if (c == 'n' && read_number(&tmp, &format, argp))
-				return (1);
-			else if (c == 'i' && read_identifier(&tmp, argp))
-				return (1);
-			else if (c == '$' && *tmp != c)
+			if ((c == 'n' && read_number(&tmp, &format, argp)) ||
+				(c == 'i' && read_identifier(&tmp, argp)) ||
+				(c == '$' && *tmp != c))
 				return (1);
 		}
 		else if (*tmp++ != c)
