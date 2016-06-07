@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 19:03:08 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/06 19:18:22 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/07 16:25:03 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	build_room_data(t_list *lst, t_anthill *in)
 		ft_printf("Room '%s' has hash: {{red;u}}%#x{{eoc;}}\n",
 			room->name, hash);
 		if (room->command == COMMAND_START)
-			in->start = in->rooms[hash];
+			in->start = room;
 		else if (room->command == COMMAND_END)
-			in->end = in->rooms[hash];
+			in->end = room;
 		in->rooms[hash] = room;
 		lst = lst->next;
 	}
@@ -61,8 +61,8 @@ static int	parse_input(const char *s, t_anthill *in)
 	items = NULL;
 	while (*s != '\0')
 	{
-		if ((!ft_expect(&s, "##") && process_command(&s, &command)
-			&& process_room(&s, command, &items))
+		if ((!ft_expect(&s, "##") && (process_command(&s, &command)
+			|| process_room(&s, command, &items)))
 			|| (!ft_expect(&s, "#") && process_comment(&s)))
 			return (1);
 		else if (process_room(&s, COMMAND_NONE, &items))

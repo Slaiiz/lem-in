@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 18:30:07 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/06 19:17:59 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/07 16:30:16 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	process_room(const char **s, t_command command, t_list **in)
 			return (1);
 	if ((size_t)(tmp - *s) < 1 || (room = malloc(sizeof(*room))) == NULL)
 		return (1);
+	room->nodes = NULL;
+	room->command = command;
 	room->name = ft_strsub(*s, 0, (size_t)(tmp++ - *s));
 	if (ft_expect(&tmp, "$nw $nw\n", &room->x, &room->y))
 		return (1);
