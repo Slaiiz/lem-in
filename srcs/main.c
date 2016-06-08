@@ -119,6 +119,7 @@ int			main(int argc, char **argv)
 	t_anthill	data;
 	const char	*input;
 
+	ft_bzero(&data, sizeof(data));
 	if (read_input(&input) || parse_input(input, &data))
 	{
 		ft_printf("#!fd=2^ERROR\n");
