@@ -79,13 +79,14 @@ int	process_node(const char **s, t_anthill *in)
 		if (*tmp == '\0')
 			return (1);
 	node_b = in->rooms[key_to_hash(*s, (size_t)(tmp - *s)) % (10 * in->len)];
-	if ((new = ft_lstnew(node_b, sizeof(node_b))) == NULL)
+	if (node_a == NULL || node_b == NULL ||
+		(new = ft_lstnew(node_b, sizeof(node_b))) == NULL)
 		return (1);
 	ft_lstadd(&node_a->nodes, new);
 	if ((new = ft_lstnew(node_a, sizeof(node_a))) == NULL)
 		return (1);
 	ft_lstadd(&node_b->nodes, new);
-	ft_printf("Created linkage\n");
+	ft_printf("Created linkage %s -> %s\n", node_a->name, node_b->name);
 	*s = ++tmp;
 	return (0);
 }

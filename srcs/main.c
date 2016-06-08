@@ -20,7 +20,7 @@ static int	build_room_data(t_list *lst, t_anthill *in)
 
 	if ((len = ft_lstlen(lst)) < 1)
 		return (1);
-	if ((in->rooms = malloc(10 * len * sizeof(*in->rooms))) == NULL)
+	if ((in->rooms = ft_memalloc(10 * len * sizeof(*in->rooms))) == NULL)
 		return (1);
 	while (lst)
 	{
