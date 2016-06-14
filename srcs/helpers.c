@@ -12,6 +12,10 @@
 
 #include "lemin.h"
 
+/*
+** key_to_hash:
+*/
+
 unsigned int	key_to_hash(const char *s, size_t len)
 {
 	unsigned int	hash;

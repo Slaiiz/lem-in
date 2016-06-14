@@ -6,14 +6,18 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 18:32:04 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/01 13:33:17 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/14 16:52:28 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIN_H
-# define LEMIN_H
+#define LEMIN_H
 
-# include "libft.h"
+#include "libft.h"
+
+#define F_FEATURES	0x0001
+#define F_OPT_NONE	0x0002
+#define F_OPT_AGGR	0x0004
 
 typedef enum		e_command
 {
@@ -25,6 +29,14 @@ typedef enum		e_command
 	COMMAND_DEATHSQUAD
 }					t_command;
 
+typedef enum		e_state
+{
+	STATE_HEALTHY,
+	STATE_DRUNK,
+	STATE_ON_FIRE,
+	STATE_DEAD
+}					t_state;
+
 typedef struct		s_room
 {
 	unsigned int	x;
@@ -34,10 +46,17 @@ typedef struct		s_room
 	t_command		command;
 }					t_room;
 
+typedef struct		s_ant
+{
+	t_room			*room;
+	t_state			state;
+}					t_ant;
+
 typedef struct		s_anthill
 {
 	unsigned int	len;
 	t_room			*end;
+	t_ant			*ants;
 	t_room			*start;
 	unsigned int	n_ants;
 	t_room			**rooms;
@@ -48,5 +67,6 @@ int					process_comment(const char **s);
 int					process_node(const char **s, t_anthill *in);
 int					process_command(const char **s, t_command *in);
 int					process_room(const char **s, t_command command, t_list **in);
+int					run_simulation(t_anthill *anthill);
 
 #endif

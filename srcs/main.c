@@ -6,11 +6,15 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 19:03:08 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/07 16:25:03 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/14 16:53:21 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+/*
+** build_room_data:
+*/
 
 static int	build_room_data(t_list *lst, t_anthill *in)
 {
@@ -65,7 +69,7 @@ static int	parse_input(const char *s, t_anthill *in)
 			|| process_room(&s, command, &items)))
 			|| (!ft_expect(&s, "#") && process_comment(&s)))
 			return (1);
-		else if (process_room(&s, COMMAND_NONE, &items))
+		else if (ft_expect(&s, "L") && process_room(&s, COMMAND_NONE, &items))
 			break ;
 	}
 	if (build_room_data(items, in))
@@ -110,17 +114,39 @@ static int	read_input(const char **out)
 	return (0);
 }
 
+static int	parse_flags(int *argc, char ***argv, unsigned short *in)
+{
+	char	*args;
+
+	while (argc)
+	{
+		if (*(++*argv)[0] == '-')
+		{
+			args = **argv;
+			while (*++args != '\0')
+			{
+				if (*args == 'f')
+					*in |= F_FEATURES;
+				else if (*args == 'n')
+					*in |= F_OPTNONE;
+			}
+		}
+	}
+}
+
 /*
 ** main:
 */
 
 int			main(int argc, char **argv)
 {
-	t_anthill	data;
-	const char	*input;
+	t_anthill		data;
+	unsigned short	flags;
+	const char		*input;
 
 	ft_bzero(&data, sizeof(data));
-	if (read_input(&input) || parse_input(input, &data))
+	if (parse_flags(&argc, &argv, &flags) || read_input(&input) ||
+		parse_input(input, &data) || run_simulation(&data))
 	{
 		ft_printf("#!fd=2^ERROR\n");
 		return (1);

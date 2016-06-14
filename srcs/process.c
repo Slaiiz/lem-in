@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+** process_command:
+** TODO: Ignore unknown commands
+*/
+
 int	process_command(const char **s, t_command *in)
 {
 	if (ft_seekstr(s, "end"))
@@ -29,12 +34,20 @@ int	process_command(const char **s, t_command *in)
 	return (!ft_seekstr(s, "\n"));
 }
 
+/*
+** process_comment:
+*/
+
 int	process_comment(const char **s)
 {
 	while (**s != '\0' && **s != '\n')
 		++*s;
 	return (!ft_seekstr(s, "\n"));
 }
+
+/*
+** process_room:
+*/
 
 int	process_room(const char **s, t_command command, t_list **in)
 {
@@ -61,6 +74,10 @@ int	process_room(const char **s, t_command command, t_list **in)
 	*s = tmp;
 	return (0);
 }
+
+/*
+** process_node:
+*/
 
 int	process_node(const char **s, t_anthill *in)
 {

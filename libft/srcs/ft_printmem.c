@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 14:01:14 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/04/25 15:31:44 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/08 17:54:44 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	print_asc(const void *addr, size_t size)
 	}
 }
 
-void		print_memory(const void *addr, size_t size)
+void		ft_printmem(const void *addr, size_t size)
 {
 	while (size > 15)
 	{
