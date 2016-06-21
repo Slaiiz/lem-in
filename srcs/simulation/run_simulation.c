@@ -12,9 +12,9 @@
 
 #include "lemin.h"
 
-int	run_simulation(t_anthill *anthill)
+int			run_simulation(t_anthill *hill)
 {
-	if (reset_simulation(anthill))
+	if (reset_simulation(hill))
 		return (1);
 	return (0);
 }
