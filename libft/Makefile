@@ -2,6 +2,7 @@ GCC       =	gcc
 GCCFLAGS  =	-Wall -Wextra -Werror
 AR        =	ar
 NAME      =	libft.a
+INCLUDE   =	include include/printf
 PRINTFOBJ =	main.o           extras.o        display.o         utilities.o
 OBJS      =	ft_atoi.o        ft_bzero.o      ft_isalnum.o      ft_isalpha.o    \
            	ft_isdigit.o     ft_isprint.o    ft_itoa.o         ft_lstadd.o     \
@@ -29,15 +30,14 @@ OBJS      =	ft_atoi.o        ft_bzero.o      ft_isalnum.o      ft_isalpha.o    \
 OBJPATH   =	../objs/libft
 DEPS      =	$(addprefix $(OBJPATH)/printf/,$(PRINTFOBJ))\
            	$(addprefix $(OBJPATH)/,$(OBJS))
-INCLUDE   =	include include/printf
 # ------------------------------------------------------------------------------
 
 .PHONY: all clean fclean re
 
-all: $(NAME)
+all: $(OBJPATH)/$(NAME)
 	@printf "Nothing more to be done!\n"
 
-$(NAME): $(DEPS)
+$(OBJPATH)/$(NAME): $(DEPS)
 	@printf "Linking $@ ... "
 	@$(AR) -cr $@ $^
 	@printf "OK!\n"
@@ -56,7 +56,7 @@ $(OBJPATH)/%.o: srcs/%.c
 
 clean:
 	@printf "Removing object files ... "
-	@rm -rf objs
+	@rm -rf $(OBJPATH)
 	@printf "OK!\n"
 
 fclean: clean
