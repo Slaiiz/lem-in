@@ -16,7 +16,7 @@
 #include "libft.h"
 
 #define F_FEATURES	0x0001
-#define F_OPT_NONE	0x0002
+#define F_OPT_TIME	0x0002
 #define F_OPT_AGGR	0x0004
 
 typedef enum		e_command
@@ -63,10 +63,18 @@ typedef struct		s_anthill
 }					t_anthill;
 
 unsigned int		key_to_hash(const char *s, size_t len);
+
+int					parse_flags(int *argc, char ***argv, unsigned short *in);
+int					build_data(t_list *lst, t_anthill *in);
+int					parse_input(const char *s, t_anthill *in);
+int					read_input(const char **out);
+
+int					process_command(const char **s, t_command *in);
 int					process_comment(const char **s);
 int					process_node(const char **s, t_anthill *in);
-int					process_command(const char **s, t_command *in);
 int					process_room(const char **s, t_command command, t_list **in);
+
+int					reset_simulation(t_anthill *anthill);
 int					run_simulation(t_anthill *anthill);
 
 #endif
