@@ -1,73 +1,67 @@
-CC        =	gcc
-CFLAGS    =	-Wall -Wextra -Werror
+GCC       =	gcc
+GCCFLAGS  =	-Wall -Wextra -Werror
+AR        =	ar
 NAME      =	libft.a
-SRCS      =	ft_atoi.c       	ft_bzero.c     	ft_isalnum.c     	ft_isalpha.c   	ft_isascii.c\
-           	ft_isdigit.c    	ft_isprint.c   	ft_itoa.c        	ft_lstadd.c    	ft_lstdel.c\
-           	ft_lstdelone.c  	ft_lstiter.c   	ft_lstmap.c      	ft_lstnew.c    	ft_memalloc.c\
-           	ft_memccpy.c    	ft_memchr.c    	ft_memcmp.c      	ft_memcpy.c    	ft_memdel.c\
-           	ft_memmove.c    	ft_memset.c    	ft_putchar.c     	ft_putchar_fd.c	ft_putendl.c\
-           	ft_putendl_fd.c 	ft_putnbr.c    	ft_putnbr_fd.c   	ft_putstr.c    	ft_putstr_fd.c\
-           	ft_strcat.c     	ft_strchr.c    	ft_strclr.c      	ft_strcmp.c    	ft_strcpy.c\
-           	ft_strdel.c     	ft_strdup.c    	ft_strequ.c      	ft_striter.c   	ft_striteri.c\
-           	ft_strjoin.c    	ft_strlcat.c   	ft_strlen.c      	ft_strmap.c    	ft_strmapi.c\
-           	ft_strncat.c    	ft_strncmp.c   	ft_strncpy.c     	ft_strnequ.c   	ft_strnew.c\
-           	ft_strnstr.c    	ft_strrchr.c   	ft_strsplit.c    	ft_strstr.c    	ft_strsub.c\
-           	ft_strtrim.c    	ft_tolower.c   	ft_toupper.c     	ft_min.c       	ft_max.c\
-           	ft_itoa_base.c  	ft_isblank.c   	ft_chrrep.c      	ft_strrev.c    	ft_rot13.c\
-           	ft_putnbr_base.c	ft_printmem.c  	ft_nbrlen.c      	ft_realloc.c   	ft_arraydel.c\
-           	ft_abs.c        	ft_strndup.c   	ft_itoa_base64.c 	ft_strlowcase.c	ft_strupcase.c\
-           	ft_strcmpcase.c 	ft_seekstr.c   	ft_expect.c      	ft_wstrlen.c   	ft_uitoa.c\
-           	ft_uitoa64.c    	ft_uitoa_base.c	ft_uitoa_base64.c	ft_itoa64.c    	ft_arrayfind.c\
-           	ft_arraycount.c 	ft_memdup.c    	ft_parseint.c    	ft_lstlen.c
-PRINTF    =	main.c          	extras.c       	display.c        	utilities.c
-SRCSOBJ   =	$(subst .c,.o,$(SRCS))
-PRINTFOBJ:=	$(subst .c,.o,$(PRINTF))
-vpath %.o objs
+PRINTFOBJ =	main.o           extras.o        display.o         utilities.o
+OBJS      =	ft_atoi.o        ft_bzero.o      ft_isalnum.o      ft_isalpha.o    \
+           	ft_isdigit.o     ft_isprint.o    ft_itoa.o         ft_lstadd.o     \
+           	ft_lstdelone.o   ft_lstiter.o    ft_lstmap.o       ft_lstnew.o     \
+           	ft_memccpy.o     ft_memchr.o     ft_memcmp.o       ft_memcpy.o     \
+           	ft_memmove.o     ft_memset.o     ft_putchar.o      ft_putchar_fd.o \
+           	ft_putendl_fd.o  ft_putnbr.o     ft_putnbr_fd.o    ft_putstr.o     \
+           	ft_strcat.o      ft_strchr.o     ft_strclr.o       ft_strcmp.o     \
+           	ft_strdel.o      ft_strdup.o     ft_strequ.o       ft_striter.o    \
+           	ft_strjoin.o     ft_strlcat.o    ft_strlen.o       ft_strmap.o     \
+           	ft_strncat.o     ft_strncmp.o    ft_strncpy.o      ft_strnequ.o    \
+           	ft_strnstr.o     ft_strrchr.o    ft_strsplit.o     ft_strstr.o     \
+           	ft_strtrim.o     ft_tolower.o    ft_toupper.o      ft_min.o        \
+           	ft_itoa_base.o   ft_isblank.o    ft_chrrep.o       ft_strrev.o     \
+           	ft_putnbr_base.o ft_printmem.o   ft_nbrlen.o       ft_realloc.o    \
+           	ft_abs.o         ft_strndup.o    ft_itoa_base64.o  ft_strlowcase.o \
+           	ft_strcmpcase.o  ft_seekstr.o    ft_expect.o       ft_wstrlen.o    \
+           	ft_uitoa64.o     ft_uitoa_base.o ft_uitoa_base64.o ft_itoa64.o     \
+           	ft_arraycount.o  ft_memdup.o     ft_parseint.o     ft_lstlen.o     \
+           	ft_isascii.o     ft_lstdel.o     ft_memalloc.o     ft_memdel.o     \
+           	ft_putendl.o     ft_putstr_fd.o  ft_strcpy.o       ft_striteri.o   \
+           	ft_strmapi.o     ft_strnew.o     ft_strsub.o       ft_max.o        \
+           	ft_rot13.o       ft_arraydel.o   ft_strupcase.o    ft_uitoa.o      \
+           	ft_arrayfind.o
+OBJPATH   =	../objs/libft
+DEPS      =	$(addprefix $(OBJPATH)/printf/,$(PRINTFOBJ))\
+           	$(addprefix $(OBJPATH)/,$(OBJS))
+INCLUDE   =	include include/printf
+# ------------------------------------------------------------------------------
 
-help:
-	@echo "+------------+"
-	@echo "| all        |"
-	@echo "| clean      |"
-	@echo "| fclean     |"
-	@echo "| re         |"
-	@echo "| renolibft  |"
-	@echo "+------------+"
+.PHONY: all clean fclean re
 
-all: ft_printf.o $(NAME)
+all: $(NAME)
+	@printf "Nothing more to be done!\n"
 
-ft_printf.o:
-	mkdir -p objs;\
-	cd srcs/printf;\
-	$(CC) $(CFLAGS) -I ../../include -I ../../include/printf -c $(PRINTF);\
-	mv $(PRINTFOBJ) ../../objs;\
-	cd ../../objs;\
-	ld -r -o ft_printf.o $(PRINTFOBJ);\
+$(NAME): $(DEPS)
+	@printf "Linking $@ ... "
+	@$(AR) -cr $@ $^
+	@printf "OK!\n"
 
-$(NAME): $(SRCSOBJ)
-	cd objs;\
-	ar -r ../$@ $(SRCSOBJ) ft_printf.o
+$(OBJPATH)/printf/%.o: srcs/printf/%.c
+	@printf "Compiling $@ ... "
+	@mkdir -p $(OBJPATH)/printf
+	@$(GCC) $(GCCFLAGS) -c -o $@ $(addprefix -I,$(INCLUDE)) $<
+	@printf "OK!\n"
+
+$(OBJPATH)/%.o: srcs/%.c
+	@printf "Compiling $@ ... "
+	@mkdir -p $(OBJPATH)
+	@$(GCC) $(GCCFLAGS) -c -o $@ $(addprefix -I,$(INCLUDE)) $<
+	@printf "OK!\n"
 
 clean:
-	cd objs;\
-	rm -f $(SRCSOBJ) $(PRINTFOBJ) ft_printf.o
-	rm -rf objs
+	@printf "Removing object files ... "
+	@rm -rf objs
+	@printf "OK!\n"
 
 fclean: clean
-	rm -f $(NAME)
+	@printf "Removing target ... "
+	@rm -f $(NAME)
+	@printf "OK!\n"
 
 re: fclean all
-
-renolibft:
-	cd objs;\
-	rm -f $(PRINTFOBJ) ft_printf.o;
-	make ft_printf.o;\
-	cd objs;\
-	ar -r ../$(NAME) ft_printf.o
-
-%.o:
-	@cd srcs;\
-	echo "Compiling $@";\
-	$(CC) $(CFLAGS) -I ../include -I ../include/printf -c $(subst .o,.c,$@);\
-	mv $@ ../objs
-
-.PHONY: help all clean fclean re renolibft
