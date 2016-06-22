@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-int	process_room(const char **s, t_command command, t_list **in)
+int	process_room(const char **s, t_command cmd, t_list **in)
 {
 	const char	*tmp;
 	t_list		*item;
@@ -25,7 +25,7 @@ int	process_room(const char **s, t_command command, t_list **in)
 	if ((size_t)(tmp - *s) < 1 || (room = malloc(sizeof(*room))) == NULL)
 		return (1);
 	room->nodes = NULL;
-	room->command = command;
+	room->command = cmd;
 	room->name = ft_strsub(*s, 0, (size_t)(tmp++ - *s));
 	if (ft_expect(&tmp, "$nw $nw\n", &room->x, &room->y))
 		return (1);
