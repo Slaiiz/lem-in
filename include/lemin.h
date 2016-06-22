@@ -43,6 +43,7 @@ typedef struct		s_room
 	unsigned int	y;
 	const char		*name;
 	t_list			*nodes;
+	unsigned int	visits;
 	t_command		command;
 }					t_room;
 
@@ -72,9 +73,9 @@ int					read_input(const char **out);
 int					process_command(const char **s, t_command *in);
 int					process_comment(const char **s);
 int					process_node(const char **s, t_anthill *in);
-int					process_room(const char **s, t_command command, t_list **in);
+int					process_room(const char **s, t_command cmd, t_list **in);
 
-int					reset_simulation(t_anthill *anthill);
-int					run_simulation(t_anthill *anthill);
+int					reset_simulation(t_anthill *hill);
+int					run_simulation(t_anthill *hill, unsigned short flags);
 
 #endif
