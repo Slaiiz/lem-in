@@ -12,9 +12,11 @@
 
 #include "lemin.h"
 
-int			run_simulation(t_anthill *hill)
+int			run_simulation(t_anthill *hill, unsigned short flags)
 {
-	if (reset_simulation(hill))
+	t_list	*route;
+
+	if (reset_simulation(hill) || compute_route(hill, &route))
 		return (1);
 	return (0);
 }

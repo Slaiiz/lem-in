@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static int	preprocess(t_anthill **out)
+static int	create_anthill(t_anthill **out)
 {
 	const char	*input;
 	t_anthill	*hill;
@@ -32,8 +32,8 @@ int			main(int argc, char **argv)
 	unsigned short	flags;
 
 	if (parse_flags(&argc, &argv, &flags)
-		|| preprocess(&hill)
-		|| run_simulation(hill))
+		|| create_anthill(&hill)
+		|| run_simulation(hill, flags))
 	{
 		ft_printf("#!fd=2^ERROR\n");
 		return (1);

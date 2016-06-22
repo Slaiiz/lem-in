@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-int	reset_simulation(t_anthill *anthill)
+static int	reposition_ants(t_anthill *hill)
 {
 	unsigned int	i;
 	t_ant			*ant;
@@ -26,5 +26,12 @@ int	reset_simulation(t_anthill *anthill)
 		ant->room = anthill->start;
 		ant->state = STATE_HEALTHY;
 	}
+	return (0);
+}
+
+int			reset_simulation(t_anthill *hill)
+{
+	if (reposition_ants(hill))
+		return (1);
 	return (0);
 }
