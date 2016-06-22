@@ -35,7 +35,7 @@ DEPS      =	$(addprefix $(OBJPATH)/printf/,$(PRINTFOBJ))\
 .PHONY: all clean fclean re
 
 all: $(OBJPATH)/$(NAME)
-	@printf "Nothing more to be done!\n"
+	@printf "$(NAME): Nothing more to be done!\n"
 
 $(OBJPATH)/$(NAME): $(DEPS)
 	@printf "Linking $@ ... "

@@ -15,7 +15,7 @@ DEPS     =	$(addprefix $(OBJPATH)/,$(OBJS))
 .PHONY: all clean fclean re
 
 all: objs/libft/libft.a $(NAME)
-	@printf "Nothing more to be done!\n"
+	@printf "$(NAME): Nothing more to be done!\n"
 
 objs/libft/libft.a:
 	@make -C libft all
