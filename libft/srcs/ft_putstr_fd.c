@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 14:56:21 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/11/25 14:57:11 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/23 15:52:51 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,4 @@ void	ft_putstr_fd(char const *s, int fd)
 {
 	while (*s != '\0')
 		write(fd, s++, 1);
-	return ;
 }

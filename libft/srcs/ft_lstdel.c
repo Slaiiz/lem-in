@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 15:32:10 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/11/29 15:46:19 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/23 15:51:30 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,4 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 		*alst = curr;
 	}
 	*alst = NULL;
-	return ;
 }

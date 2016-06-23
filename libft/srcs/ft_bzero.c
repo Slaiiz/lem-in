@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 10:01:32 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/11/25 15:25:54 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/23 15:50:57 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,4 @@ void	ft_bzero(void *s, size_t n)
 {
 	while (n--)
 		*((unsigned char*)s + n) = '\0';
-	return ;
 }

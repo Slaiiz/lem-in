@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 15:43:34 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/11/26 15:46:34 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/23 15:51:36 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,4 @@ void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 		f(lst);
 		lst = lst->next;
 	}
-	return ;
 }

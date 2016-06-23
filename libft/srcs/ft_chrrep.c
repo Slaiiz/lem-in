@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/02 12:28:02 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/02 15:22:04 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/23 15:51:17 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	nextwrite(char **dst, char **src)
 {
 	while (**src != '\0')
 		*(*dst)++ = *(*src)++;
-	return ;
 }
 
 static void	writeback(char *str, char *bak, char **rep, char c)
@@ -40,7 +39,6 @@ static void	writeback(char *str, char *bak, char **rep, char c)
 	}
 	nextwrite(&str, &off);
 	*str = '\0';
-	return ;
 }
 
 char		*ft_chrrep(char *str, char c, char **rep)

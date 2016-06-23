@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 18:12:29 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/11/24 18:22:26 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/23 15:53:20 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,4 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 		f((unsigned int)(s - tmp), s);
 		s++;
 	}
-	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 14:57:31 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/11/25 14:58:30 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/06/23 15:52:10 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,4 @@ void	ft_putendl_fd(char const *s, int fd)
 	while (*s != '\0')
 		write(fd, s++, 1);
 	write(fd, "\n", 1);
-	return ;
 }
