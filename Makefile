@@ -1,5 +1,5 @@
 GCC      =	gcc
-GCCFLAGS =	-Wall -Wextra -Werror
+GCCFLAGS =	#-Wall -Wextra -Werror
 NAME     =	lem-in
 INCLUDE  =	include libft/include
 OBJS     =	main.o                       parsing/build_data.o         \
@@ -7,7 +7,8 @@ OBJS     =	main.o                       parsing/build_data.o         \
           	parsing/read_input.o         processing/process_command.o \
           	processing/process_comment.o processing/process_node.o    \
           	processing/process_room.o    simulation/reset_simulation.o\
-          	simulation/run_simulation.o  miscellaneous/key_to_hash.o
+          	simulation/run_simulation.o  miscellaneous/key_to_hash.o  \
+			simulation/compute_route.o
 OBJPATH  =	objs
 DEPS     =	$(addprefix $(OBJPATH)/,$(OBJS))
 # -------------------------------------------------
