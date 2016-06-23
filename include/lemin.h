@@ -18,6 +18,7 @@
 #define F_FEATURES	0x0001
 #define F_OPT_TIME	0x0002
 #define F_OPT_AGGR	0x0004
+#define F_DEBUGEN   0x0008
 
 typedef enum		e_command
 {
@@ -53,7 +54,7 @@ typedef struct		s_ant
 	t_state			state;
 }					t_ant;
 
-typedef struct		s_anthill
+typedef struct		s_hill
 {
 	unsigned int	len;
 	t_room			*end;
@@ -61,21 +62,22 @@ typedef struct		s_anthill
 	t_room			*start;
 	unsigned int	n_ants;
 	t_room			**rooms;
-}					t_anthill;
+}					t_hill;
 
 unsigned int		key_to_hash(const char *s, size_t len);
 
-int					parse_flags(int *argc, char ***argv, unsigned short *in);
-int					build_data(t_list *lst, t_anthill *in);
-int					parse_input(const char *s, t_anthill *in);
+void				parse_flags(int argc, char **argv, unsigned short *in);
+int					build_data(t_list *lst, t_hill *in);
+int					parse_input(const char *s, t_hill *in);
 int					read_input(const char **out);
 
 int					process_command(const char **s, t_command *in);
 int					process_comment(const char **s);
-int					process_node(const char **s, t_anthill *in);
+int					process_node(const char **s, t_hill *in);
 int					process_room(const char **s, t_command cmd, t_list **in);
 
-int					reset_simulation(t_anthill *hill);
-int					run_simulation(t_anthill *hill, unsigned short flags);
+int					reset_simulation(t_hill *hill);
+int					run_simulation(t_hill *hill, unsigned short flags);
+int					compute_route(t_hill *hill, t_list ***out);
 
 #endif

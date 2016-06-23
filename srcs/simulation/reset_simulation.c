@@ -12,24 +12,24 @@
 
 #include "lemin.h"
 
-static int	reposition_ants(t_anthill *hill)
+static int	reposition_ants(t_hill *hill)
 {
 	unsigned int	i;
 	t_ant			*ant;
 
-	i = anthill->n_ants;
-	if ((anthill->ants = malloc(sizeof(*anthill->ants) * i)) == NULL)
+	i = hill->n_ants;
+	if ((hill->ants = malloc(sizeof(*hill->ants) * i)) == NULL)
 		return (1);
 	while (i-- > 0)
 	{
-		ant = &anthill->ants[i];
-		ant->room = anthill->start;
+		ant = &hill->ants[i];
+		ant->room = hill->start;
 		ant->state = STATE_HEALTHY;
 	}
 	return (0);
 }
 
-int			reset_simulation(t_anthill *hill)
+int			reset_simulation(t_hill *hill)
 {
 	if (reposition_ants(hill))
 		return (1);

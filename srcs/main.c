@@ -12,10 +12,10 @@
 
 #include "lemin.h"
 
-static int	create_anthill(t_anthill **out)
+static int	create_hill(t_hill **out)
 {
+	t_hill		*hill;
 	const char	*input;
-	t_anthill	*hill;
 
 	if ((hill = malloc(sizeof(*hill))) == NULL)
 		return (1);
@@ -28,12 +28,11 @@ static int	create_anthill(t_anthill **out)
 
 int			main(int argc, char **argv)
 {
-	t_anthill		*hill;
+	t_hill			*hill;
 	unsigned short	flags;
 
-	if (parse_flags(&argc, &argv, &flags)
-		|| create_anthill(&hill)
-		|| run_simulation(hill, flags))
+	parse_flags(argc, argv, &flags);
+	if (create_hill(&hill) || run_simulation(hill, flags))
 	{
 		ft_printf("#!fd=2^ERROR\n");
 		return (1);

@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-int	parse_input(const char *s, t_anthill *in)
+int	parse_input(const char *s, t_hill *in)
 {
 	t_list		*items;
 	t_command	command;

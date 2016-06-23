@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-int	build_data(t_list *lst, t_anthill *in)
+int	build_data(t_list *lst, t_hill *in)
 {
 	size_t			len;
 	unsigned int	hash;
@@ -32,6 +32,7 @@ int	build_data(t_list *lst, t_anthill *in)
 			in->start = room;
 		else if (room->command == COMMAND_END)
 			in->end = room;
+		room->visits = 0;
 		in->rooms[hash] = room;
 		lst = lst->next;
 	}

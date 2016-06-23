@@ -29,8 +29,6 @@ int	process_room(const char **s, t_command cmd, t_list **in)
 	room->name = ft_strsub(*s, 0, (size_t)(tmp++ - *s));
 	if (ft_expect(&tmp, "$nw $nw\n", &room->x, &room->y))
 		return (1);
-	ft_printf("New room:\n- Name = '%s'\n- X = %d\n- Y = %d\n",
-		room->name, room->x, room->y);
 	if ((item = ft_lstnew(room, sizeof(*room))) == NULL)
 		return (1);
 	ft_lstadd(in, item);

@@ -42,30 +42,41 @@ static int	find_exit(t_room *curr, t_room **out)
 	return (1);
 }
 
-static void	delete_exit(t_room *room, size_t size)
+static int	store_route(t_list *route, t_list ***routes)
 {
-	*room = NULL;
+	t_list	*new;
+
+	if (ft_lstnew(route, sizeof(*route)))
+		return (1);
+	ft_lstadd((t_list**)routes, route);
+	return (0);
 }
 
-/*
-** FIXME: ft_lstdelone incorrect
-*/
-
-int			compute_route(t_anthill *hill, t_list **out)
+int			compute_route(t_hill *hill, t_list ***out)
 {
 	t_room	*curr;
 	t_room	*next;
+	t_list	*route;
 
-	*out = NULL;
+	route = NULL;
 	curr = hill->start;
+	if (mark_visit(&route, curr))
+		return (1);
 	while (curr != hill->end)
 	{
-		if (mark_visit(out, curr))
-			return (1);
 		if (find_exit(curr, &next))
 		{
-			ft_printf("Found no exit, falling back.\n");
-			ft_lstdelone(out, delete_exit);
+			ft_lstdelone(&route, NULL);
+			if (route == NULL)
+				return (1);
+			curr = route->content;
+			continue ;
 		}
+		if (mark_visit(&route, next))
+			return (1);
+		curr = next;
 	}
+	if (store_route(route, out))
+		return (1);
+	return (0);
 }

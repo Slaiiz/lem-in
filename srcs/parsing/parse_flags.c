@@ -12,22 +12,21 @@
 
 #include "lemin.h"
 
-int	parse_flags(int *argc, char ***argv, unsigned short *in)
+void	parse_flags(int argc, char **argv, unsigned short *in)
 {
 	char	*args;
 
-	while (*argc > 1)
+	while (argc > 1 && --argc)
 	{
-		if (*(++*argv)[0] == '-')
+		if (*(++argv)[0] != '-')
+			return ;
+		args = *argv;
+		while (*++args != '\0')
 		{
-			args = **argv;
-			while (*++args != '\0')
-			{
-				if (*args == 'f')
-					*in |= F_FEATURES;
-			}
-			--argc;
+			if (*args == 'f')
+				*in |= F_FEATURES;
+			else if (*args == 'd')
+				*in |= F_DEBUGEN;
 		}
 	}
-	return (0);
 }
