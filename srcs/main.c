@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static int	create_hill(t_hill **out)
+int static	create_hill(t_hill **out)
 {
 	t_hill		*hill;
 	const char	*input;

@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static int	mark_visit(t_list **out, t_room *curr)
+int static	mark_visit(t_list **out, t_room *curr)
 {
 	t_list	*new;
 
@@ -23,7 +23,7 @@ static int	mark_visit(t_list **out, t_room *curr)
 	return (0);
 }
 
-static int	find_exit(t_room *curr, t_room **out)
+int static	find_exit(t_room *curr, t_room **out)
 {
 	t_room	*next;
 	t_list	*nodes;
@@ -42,17 +42,17 @@ static int	find_exit(t_room *curr, t_room **out)
 	return (1);
 }
 
-static int	store_route(t_list *route, t_list ***routes)
+int static	store_route(t_list *route, t_list **out)
 {
 	t_list	*new;
 
-	if (ft_lstnew(route, sizeof(*route)))
+	if ((new = ft_lstnew(route, sizeof(*route))) == NULL)
 		return (1);
-	ft_lstadd((t_list**)routes, route);
+	ft_lstadd(out, new);
 	return (0);
 }
 
-int			compute_route(t_hill *hill, t_list ***out)
+int			compute_route(t_hill *hill, t_list **out)
 {
 	t_room	*curr;
 	t_room	*next;
@@ -60,19 +60,17 @@ int			compute_route(t_hill *hill, t_list ***out)
 
 	route = NULL;
 	curr = hill->start;
-	if (mark_visit(&route, curr))
-		return (1);
 	while (curr != hill->end)
 	{
 		if (find_exit(curr, &next))
 		{
-			ft_lstdelone(&route, NULL);
 			if (route == NULL)
 				return (1);
+			ft_lstdelone(&route, NULL);
 			curr = route->content;
 			continue ;
 		}
-		if (mark_visit(&route, next))
+		if (mark_visit(&route, curr))
 			return (1);
 		curr = next;
 	}

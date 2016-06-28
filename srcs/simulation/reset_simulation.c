@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static int	reposition_ants(t_hill *hill)
+int static	reposition_ants(t_hill *hill)
 {
 	unsigned int	i;
 	t_ant			*ant;

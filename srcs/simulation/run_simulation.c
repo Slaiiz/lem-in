@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static void	print_route(t_list *route)
+void static	print_route(t_list *route)
 {
 	t_room	*curr;
 
@@ -27,18 +27,28 @@ static void	print_route(t_list *route)
 	ft_printf("\n");
 }
 
+void static	clear_marks(t_hill *hill)
+{
+	hill->end->visits = 0;
+	hill->start->visits = 0;
+}
+
+void static debug(t_list *lst)
+{
+	ft_printf("%p\n%d\n", lst, ft_lstlen(lst));
+}
+
 int			run_simulation(t_hill *hill, unsigned short flags)
 {
-	t_list	**routes;
+	t_list	*routes;
+	t_room	*room;
 
+	routes = NULL;
 	if (reset_simulation(hill))
 		return (1);
 	while (!compute_route(hill, &routes))
-		continue ;
+		clear_marks(hill);
 	if (flags & F_DEBUGEN)
-	{
-		ft_printf("Got %d routes\n", ft_lstlen((t_list*)routes));
-		ft_lstiter((t_list*)routes, print_route);
-	}
+		ft_lstiter(routes, debug);
 	return (0);
 }

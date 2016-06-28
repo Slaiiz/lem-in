@@ -15,6 +15,13 @@
 
 #include "libft.h"
 
+/*
+** F_FEATURES: Enable/Disable special events
+** F_OPT_TIME: Optimize for resolution time
+** F_OPT_AGGR: Optimize for solution efficiency.
+** F_DEBUGEN : Print debug strings.
+*/
+
 #define F_FEATURES	0x0001
 #define F_OPT_TIME	0x0002
 #define F_OPT_AGGR	0x0004
@@ -66,8 +73,8 @@ typedef struct		s_hill
 
 unsigned int		key_to_hash(const char *s, size_t len);
 
-void				parse_flags(int argc, char **argv, unsigned short *in);
 int					build_data(t_list *lst, t_hill *in);
+void				parse_flags(int argc, char **argv, unsigned short *in);
 int					parse_input(const char *s, t_hill *in);
 int					read_input(const char **out);
 
@@ -76,8 +83,8 @@ int					process_comment(const char **s);
 int					process_node(const char **s, t_hill *in);
 int					process_room(const char **s, t_command cmd, t_list **in);
 
+int					compute_route(t_hill *hill, t_list **out);
 int					reset_simulation(t_hill *hill);
 int					run_simulation(t_hill *hill, unsigned short flags);
-int					compute_route(t_hill *hill, t_list ***out);
 
 #endif
