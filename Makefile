@@ -8,7 +8,8 @@ OBJS     =	main.o                       parsing/build_data.o         \
           	processing/process_comment.o processing/process_node.o    \
           	processing/process_room.o    simulation/reset_simulation.o\
           	simulation/run_simulation.o  miscellaneous/key_to_hash.o  \
-			simulation/compute_route.o
+			simulation/compute_route.o   simulation/advance.o         \
+			simulation/step_back.o       simulation/mark_visit.o
 OBJPATH  =	objs
 DEPS     =	$(addprefix $(OBJPATH)/,$(OBJS))
 # -------------------------------------------------

@@ -51,7 +51,7 @@ typedef struct		s_room
 	unsigned int	y;
 	const char		*name;
 	t_list			*nodes;
-	unsigned int	visits;
+	bool			visited;
 	t_command		command;
 }					t_room;
 
@@ -83,8 +83,11 @@ int					process_comment(const char **s);
 int					process_node(const char **s, t_hill *in);
 int					process_room(const char **s, t_command cmd, t_list **in);
 
+int					advance(t_list **route, t_room **out);
 int					compute_route(t_hill *hill, t_list **out);
+int					mark_visit(t_list **out, t_room *in);
 int					reset_simulation(t_hill *hill);
 int					run_simulation(t_hill *hill, unsigned short flags);
+int					step_back(t_list **route, t_room **out);
 
 #endif
