@@ -15,10 +15,10 @@
 int static	create_hill(t_hill **out)
 {
 	t_hill		*hill;
-	const char	*input;
+	char const	*input;
 
 	if ((hill = malloc(sizeof(*hill))) == NULL)
-		return (1);
+		exit(1);
 	ft_bzero(hill, sizeof(*hill));
 	if (read_input(&input) || parse_input(input, hill))
 		return (1);

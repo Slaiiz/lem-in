@@ -12,9 +12,9 @@
 
 #include "lemin.h"
 
-int	process_room(const char **s, t_command cmd, t_list **in)
+int	process_room(char const **s, t_command cmd, t_list **in)
 {
-	const char	*tmp;
+	char const	*tmp;
 	t_list		*item;
 	t_room		*room;
 
