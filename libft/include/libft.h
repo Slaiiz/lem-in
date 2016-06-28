@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stddef.h>
 # include <limits.h>
+# include <stdbool.h>
+
 # include "printf/ft_printf.h"
 
 # define BSIZE_INT			(8 * sizeof(int))
