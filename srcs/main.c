@@ -12,15 +12,22 @@
 
 #include "lemin.h"
 
+int	static	error(char const *s)
+{
+	ft_printf("#!fd=2^%s\n", s);
+	return (1);
+}
+
 int static	create_hill(t_hill **out)
 {
 	t_hill		*hill;
-	const char	*input;
+	char const	*input;
 
 	if ((hill = malloc(sizeof(*hill))) == NULL)
 		return (1);
 	ft_bzero(hill, sizeof(*hill));
-	if (read_input(&input) || parse_input(input, hill))
+	if (read_input(&input) || parse_input(input, hill)
+		|| !hill->start || !hill->end)
 		return (1);
 	*out = hill;
 	return (0);
@@ -32,10 +39,10 @@ int			main(int argc, char **argv)
 	unsigned short	flags;
 
 	parse_flags(argc, argv, &flags);
-	if (create_hill(&hill) || run_simulation(hill, flags))
-	{
-		ft_printf("#!fd=2^ERROR\n");
-		return (1);
-	}
+	if (create_hill(&hill))
+		return (error("ERROR"));
+	hill->flags = flags;
+	if (run_simulation(hill))
+		return (error("ERROR"));
 	return (0);
 }

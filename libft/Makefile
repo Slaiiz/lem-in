@@ -26,7 +26,7 @@ OBJS      =	ft_atoi.o        ft_bzero.o      ft_isalnum.o      ft_isalpha.o    \
            	ft_putendl.o     ft_putstr_fd.o  ft_strcpy.o       ft_striteri.o   \
            	ft_strmapi.o     ft_strnew.o     ft_strsub.o       ft_max.o        \
            	ft_rot13.o       ft_arraydel.o   ft_strupcase.o    ft_uitoa.o      \
-           	ft_arrayfind.o
+           	ft_arrayfind.o   ft_lstdup.o
 OBJPATH   =	../objs/libft
 DEPS      =	$(addprefix $(OBJPATH)/printf/,$(PRINTFOBJ))\
            	$(addprefix $(OBJPATH)/,$(OBJS))

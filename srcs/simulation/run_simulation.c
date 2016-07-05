@@ -16,6 +16,7 @@ void static	print_route(t_list *route)
 {
 	t_room	*curr;
 
+	route = route->content;
 	while (route != NULL)
 	{
 		curr = route->content;
@@ -29,26 +30,20 @@ void static	print_route(t_list *route)
 
 void static	clear_marks(t_hill *hill)
 {
-	hill->end->visits = 0;
-	hill->start->visits = 0;
+	hill->end->visited = false;
+	hill->start->visited = false;
 }
 
-void static debug(t_list *lst)
-{
-	ft_printf("%p\n%d\n", lst, ft_lstlen(lst));
-}
-
-int			run_simulation(t_hill *hill, unsigned short flags)
+int			run_simulation(t_hill *hill)
 {
 	t_list	*routes;
-	t_room	*room;
 
 	routes = NULL;
 	if (reset_simulation(hill))
 		return (1);
 	while (!compute_route(hill, &routes))
 		clear_marks(hill);
-	if (flags & F_DEBUGEN)
-		ft_lstiter(routes, debug);
+	if (hill->flags & F_DEBUGEN)
+		ft_lstiter(routes, print_route);
 	return (0);
 }

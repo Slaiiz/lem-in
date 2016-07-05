@@ -120,6 +120,7 @@ char				*ft_chrrep(char *str, char c, char **rep);
 char				*ft_rot13(char *s);
 char				*ft_strrev(char *str);
 char				**ft_strsplit(char const *s, char c);
+t_list				*ft_lstdup(t_list *lst);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 

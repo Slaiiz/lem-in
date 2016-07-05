@@ -65,6 +65,7 @@ typedef struct		s_hill
 {
 	unsigned int	len;
 	t_room			*end;
+	unsigned short	flags;
 	t_ant			*ants;
 	t_room			*start;
 	unsigned int	n_ants;
@@ -86,8 +87,9 @@ int					process_room(const char **s, t_command cmd, t_list **in);
 int					advance(t_list **route, t_room **out);
 int					compute_route(t_hill *hill, t_list **out);
 int					mark_visit(t_list **out, t_room *in);
+int					optimize_route(t_hill *hill, t_list **route);
 int					reset_simulation(t_hill *hill);
-int					run_simulation(t_hill *hill, unsigned short flags);
+int					run_simulation(t_hill *hill);
 int					step_back(t_list **route, t_room **out);
 
 #endif
