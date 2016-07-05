@@ -24,7 +24,7 @@ int static	create_hill(t_hill **out)
 	char const	*input;
 
 	if ((hill = malloc(sizeof(*hill))) == NULL)
-		return (1);
+		exit(1);
 	ft_bzero(hill, sizeof(*hill));
 	if (read_input(&input) || parse_input(input, hill)
 		|| !hill->start || !hill->end)
