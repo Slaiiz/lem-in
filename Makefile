@@ -12,7 +12,7 @@ OBJS     =	main.o                       parsing/build_data.o         \
 			simulation/step_back.o       simulation/mark_visit.o      \
 			simulation/optimize_route.o
 OBJPATH  =	objs
-DEPS     =	$(addprefix $(OBJPATH)/,$(OBJS))
+_DEPS    =	$(addprefix $(OBJPATH)/,$(OBJS))
 # -------------------------------------------------
 
 .PHONY: all clean fclean re
@@ -23,7 +23,7 @@ all: objs/libft/libft.a $(NAME)
 objs/libft/libft.a:
 	@make -C libft all
 
-$(NAME): $(DEPS)
+$(NAME): $(_DEPS)
 	@printf "Linking $@ ... "
 	@$(GCC) $(GCCFLAGS) -o $@ $^ objs/libft/libft.a
 	@printf "OK!\n"

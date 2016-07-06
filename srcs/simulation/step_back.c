@@ -14,9 +14,7 @@
 
 int	step_back(t_list **route, t_room **out)
 {
-	if (*route == NULL)
-		return (1);
 	ft_lstdelone(route, NULL);
 	*out = (*route)->content;
-	return (0);
+	return (*route == NULL);
 }

@@ -16,6 +16,7 @@ void	parse_flags(int argc, char **argv, unsigned short *in)
 {
 	char	*args;
 
+	*in = 0x0000;
 	while (argc > 1 && --argc)
 	{
 		if (*(++argv)[0] != '-')

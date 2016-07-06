@@ -28,11 +28,15 @@ int			compute_route(t_hill *hill, t_list **out)
 
 	route = NULL;
 	curr = hill->start;
+	mark_visit(&route, curr);
+	if (step_back(&route, &curr))
+		exit(1);
 	while (curr != hill->end)
 		if (advance(&route, &curr))
 			if (step_back(&route, &curr))
 				return (1);
-	optimize_route(hill, &route);
+	// optimize_route(hill, &route);
 	store_route(route, out);
+	ft_printf("Route ok\n");
 	return (0);
 }

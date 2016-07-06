@@ -28,7 +28,7 @@ OBJS      =	ft_atoi.o        ft_bzero.o      ft_isalnum.o      ft_isalpha.o    \
            	ft_rot13.o       ft_arraydel.o   ft_strupcase.o    ft_uitoa.o      \
            	ft_arrayfind.o   ft_lstdup.o
 OBJPATH   =	../objs/libft
-DEPS      =	$(addprefix $(OBJPATH)/printf/,$(PRINTFOBJ))\
+_DEPS     =	$(addprefix $(OBJPATH)/printf/,$(PRINTFOBJ))\
            	$(addprefix $(OBJPATH)/,$(OBJS))
 # ------------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ DEPS      =	$(addprefix $(OBJPATH)/printf/,$(PRINTFOBJ))\
 all: $(OBJPATH)/$(NAME)
 	@printf "$(NAME): Nothing more to be done!\n"
 
-$(OBJPATH)/$(NAME): $(DEPS)
+$(OBJPATH)/$(NAME): $(_DEPS)
 	@printf "Linking $@ ... "
 	@$(AR) -cr $@ $^
 	@printf "OK!\n"

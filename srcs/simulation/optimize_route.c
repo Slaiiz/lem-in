@@ -12,19 +12,20 @@
 
 #include "lemin.h"
 
-void static	validate(t_hill *hill, t_list *save, t_list **out)
+int static	validate(t_hill *hill, t_list *save, t_list **out)
 {
 	if (hill->flags & F_DEBUGEN)
 		ft_printf("Found one optimization.\n");
-	ft_printf("{{green}}%d{{eoc}}\n", ft_lstlen(save));
 	ft_lstdel(out, NULL);
 	*out = save;
+	return (0);
 }
 
-void static	reject(t_hill *hill)
+int static	reject(t_hill *hill)
 {
 	if (hill->flags & F_DEBUGEN)
 		ft_printf("Found no better solution.\n");
+	return (1);
 }
 
 int			optimize_route(t_hill *hill, t_list **route)
@@ -32,7 +33,6 @@ int			optimize_route(t_hill *hill, t_list **route)
 	t_list	*save;
 	t_room	*curr;
 
-	ft_printf("{{red}}%d{{eoc}}\n", ft_lstlen((*route)->content));
 	if (hill->flags & F_DEBUGEN)
 		ft_printf("Optimizing route ... ");
 	save = ft_lstdup(*route);
@@ -47,11 +47,7 @@ int			optimize_route(t_hill *hill, t_list **route)
 					break ;
 		}
 		if (curr == hill->end)
-		{
-			validate(hill, save, route);
-			return (0);
-		}
+			return (validate(hill, save, route));
 	}
-	reject(hill);
-	return (1);
+	return (reject(hill));
 }

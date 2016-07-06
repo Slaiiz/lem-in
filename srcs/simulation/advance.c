@@ -23,8 +23,7 @@ int	advance(t_list **route, t_room **out)
 		next = nodes->content;
 		if (!next->visited)
 		{
-			if (mark_visit(route, (*out)))
-				exit(1);
+			mark_visit(route, next);
 			*out = next;
 			return (0);
 		}
