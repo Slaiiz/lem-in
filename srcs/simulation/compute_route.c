@@ -12,31 +12,36 @@
 
 #include "lemin.h"
 
-void static	store_route(t_list *route, t_list **out)
+int static	store_route(t_list *route, t_list **out)
 {
 	t_list	*new;
 
 	if ((new = ft_lstnew(route, sizeof(*route))) == NULL)
-		exit(1);
+		return (1);
 	ft_lstadd(out, new);
+	return (0);
 }
 
-int			compute_route(t_hill *hill, t_list **out)
+int			compute_route(t_hill *hill, t_room *curr, t_list **out)
 {
-	t_room	*curr;
 	t_list	*route;
 
+	if (hill->flags & F_DEBUGEN)
+		ft_printf("Computing new route.\n");
 	route = NULL;
-	curr = hill->start;
-	mark_visit(&route, curr);
-	if (step_back(&route, &curr))
-		exit(1);
 	while (curr != hill->end)
-		if (advance(&route, &curr))
-			if (step_back(&route, &curr))
+		if (advance(hill, &route, &curr))
+			if (step_back(hill, &route, &curr))
+			{
+				if (hill->flags & F_DEBUGEN)
+					ft_printf("Giving up.\n");
+				ft_lstdel(&route, NULL);
 				return (1);
-	// optimize_route(hill, &route);
+			}
+	if (hill->flags & F_OPT_AGGR)
+		optimize_route(hill, &route);
 	store_route(route, out);
-	ft_printf("Route ok\n");
+	if (hill->flags & F_DEBUGEN)
+		ft_printf("Done computing a route.\n");
 	return (0);
 }

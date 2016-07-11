@@ -28,10 +28,17 @@ void static	print_route(t_list *route)
 	ft_printf("\n");
 }
 
-void static	clear_marks(t_hill *hill)
+void static	free_resources(t_list **routes)
 {
-	hill->end->visited = false;
-	hill->start->visited = false;
+	t_list	*curr;
+
+	curr = *routes;
+	while (curr != NULL)
+	{
+		free_route((t_list**)&curr->content);
+		curr = curr->next;
+	}
+	ft_lstdel(routes, NULL);
 }
 
 int			run_simulation(t_hill *hill)
@@ -41,9 +48,10 @@ int			run_simulation(t_hill *hill)
 	routes = NULL;
 	if (reset_simulation(hill))
 		return (1);
-	while (!compute_route(hill, &routes))
-		clear_marks(hill);
+	while (!compute_route(hill, hill->start, &routes))
+		hill->end->visited = false;
 	if (hill->flags & F_DEBUGEN)
 		ft_lstiter(routes, print_route);
+	free_resources(&routes);
 	return (0);
 }

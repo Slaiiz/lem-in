@@ -18,7 +18,7 @@ int	static	error(char const *s)
 	return (1);
 }
 
-int static	create_hill(t_hill **out)
+int static	create_hill(t_hill **out, unsigned short flags)
 {
 	t_hill		*hill;
 	char const	*input;
@@ -26,6 +26,7 @@ int static	create_hill(t_hill **out)
 	if ((hill = malloc(sizeof(*hill))) == NULL)
 		exit(1);
 	ft_bzero(hill, sizeof(*hill));
+	hill->flags = flags;
 	if (read_input(&input) || parse_input(input, hill)
 		|| !hill->start || !hill->end)
 		return (1);
@@ -39,9 +40,8 @@ int			main(int argc, char **argv)
 	unsigned short	flags;
 
 	parse_flags(argc, argv, &flags);
-	if (create_hill(&hill))
+	if (create_hill(&hill, flags))
 		return (error("ERROR"));
-	hill->flags = flags;
 	if (run_simulation(hill))
 		return (error("ERROR"));
 	return (0);

@@ -28,6 +28,10 @@ void	parse_flags(int argc, char **argv, unsigned short *in)
 				*in |= F_FEATURES;
 			else if (*args == 'd')
 				*in |= F_DEBUGEN;
+			else if (*args == 'a')
+				*in |= F_OPT_AGGR;
+			else if (*args == 't')
+				*in |= F_OPT_TIME;
 		}
 	}
 }

@@ -84,12 +84,13 @@ int					process_comment(const char **s);
 int					process_node(const char **s, t_hill *in);
 int					process_room(const char **s, t_command cmd, t_list **in);
 
-int					advance(t_list **route, t_room **out);
-int					compute_route(t_hill *hill, t_list **out);
-int					mark_visit(t_list **out, t_room *in);
+int					advance(t_hill *hill, t_list **route, t_room **out);
+void				set_visits(t_list *route, bool state);
+int					compute_route(t_hill *hill, t_room *curr, t_list **out);
+void				free_route(t_list **route);
 int					optimize_route(t_hill *hill, t_list **route);
 int					reset_simulation(t_hill *hill);
 int					run_simulation(t_hill *hill);
-int					step_back(t_list **route, t_room **out);
+int					step_back(t_hill *hill, t_list **route, t_room **out);
 
 #endif

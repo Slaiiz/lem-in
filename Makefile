@@ -9,8 +9,9 @@ OBJS     =	main.o                       parsing/build_data.o         \
           	processing/process_room.o    simulation/reset_simulation.o\
           	simulation/run_simulation.o  miscellaneous/key_to_hash.o  \
 			simulation/compute_route.o   simulation/advance.o         \
-			simulation/step_back.o       simulation/mark_visit.o      \
-			simulation/optimize_route.o
+			simulation/step_back.o       simulation/set_visits.o      \
+			simulation/optimize_route.o  simulation/free_route.o      \
+
 OBJPATH  =	objs
 _DEPS    =	$(addprefix $(OBJPATH)/,$(OBJS))
 # -------------------------------------------------

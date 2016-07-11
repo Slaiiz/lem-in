@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mark_visit.c                                       :+:      :+:    :+:   */
+/*   clear_visits.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/28 18:48:42 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/06/28 18:50:09 by vchesnea         ###   ########.fr       */
+/*   Created: 2016/07/11 18:41:43 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/07/11 18:41:46 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	mark_visit(t_list **out, t_room *in)
+void		set_visits(t_list *route, bool state)
 {
-	t_list	*new;
-
-	ft_printf("Visiting '%s'\n", in->name);
-	if ((new = ft_lstnew(in, sizeof(*in))) == NULL)
-		exit(1);
-	ft_lstadd(out, new);
-	in->visited = true;
-	return (0);
+	while (route != NULL)
+	{
+		((t_room*)route->content)->visited = state;
+		route = route->next;
+	}
 }
