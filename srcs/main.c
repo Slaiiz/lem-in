@@ -27,8 +27,11 @@ int static	create_hill(t_hill **out, unsigned short flags)
 		exit(1);
 	ft_bzero(hill, sizeof(*hill));
 	hill->flags = flags;
-	if (read_input(&input) || parse_input(input, hill)
-		|| !hill->start || !hill->end)
+	if (read_input(&input) || parse_input(input, hill))
+		return (1);
+	ft_printf("hill->start = %p\nhill->end = %p\n",
+		hill->start, hill->end);
+	if (!hill->start || !hill->end)
 		return (1);
 	*out = hill;
 	return (0);

@@ -14,6 +14,8 @@
 
 int	process_comment(const char **s)
 {
+	if (**s == '#')
+		return (1);
 	while (**s != '\0' && **s != '\n')
 		++*s;
 	return (!ft_seekstr(s, "\n"));

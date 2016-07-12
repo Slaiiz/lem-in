@@ -14,12 +14,14 @@
 
 int	process_node(const char **s, t_hill *in)
 {
-	const char		*tmp;
-	t_list			*new;
-	t_room			*node_a;
-	t_room			*node_b;
+	const char	*tmp;
+	t_list		*new;
+	t_room		*node_a;
+	t_room		*node_b;
 
 	tmp = *s - 1;
+	if (**s == 'L')
+		return (1);
 	while (*++tmp != '-')
 		if (*tmp == '\0' || *tmp == '\n')
 			return (1);

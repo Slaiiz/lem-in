@@ -18,7 +18,7 @@ void static	attribute_slot(t_hill *hill, t_room *room)
 
 	hash = key_to_hash(room->name, ft_strlen(room->name)) % (10 * hill->len);
 	if (hill->flags & F_DEBUGEN)
-		ft_printf("Room '%s' has hash: {{red;u}}%#x{{eoc;}}\n",
+		ft_printf("Room '%s' has hash: {{red;u}}0x%.2X{{eoc;}}\n",
 			room->name, hash);
 	if (room->command == COMMAND_START)
 		hill->start = room;

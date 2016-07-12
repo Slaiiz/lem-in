@@ -18,6 +18,8 @@ int	process_room(char const **s, t_command cmd, t_list **in)
 	t_list		*item;
 	t_room		*room;
 
+	if (**s == 'L')
+		return (1);
 	tmp = *s - 1;
 	while (*++tmp != ' ')
 		if (*tmp == '\0' || *tmp == '\n')
